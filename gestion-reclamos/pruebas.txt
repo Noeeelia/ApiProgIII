@@ -1,0 +1,169 @@
+Endpoints de la API Rest para Gestionar Reclamos
+
+CLIENTEs- EMPLEADOS- ADMINISTRADORES
+Registro de usuario (Cliente = 1, Empleado = 2, Administrador = 3):
+
+POST http://localhost:3001/api/auth/register      //Usar correos reales para luego corroborar el envio de notificaciones
+KEY Content-Type -  VALUE application/json       <--Agregar este valor en el Headers de postman
+{
+  "nombre": "Juan",
+  "apellido": "Pérez",
+  "correoElectronico": "juan@example.com",      
+  "contrasenia": "123456",
+  "idUsuarioTipo": 1,
+  "imagen": "imagen.jpg"
+}
+
+Inicio de sesión:
+POST http://localhost:3001/api/auth/login
+Content-Type: application/json    <--Revisar que este en el Headers de postman
+{
+  "correoElectronico": "fulanito@gmail.com",
+  "contrasenia": "123456"
+}
+
+
+Obtener perfil de usuario:
+GET http://localhost:3001/api/auth/perfil
+Authorization: Bearer <token_obtenido_en_login>
+
+
+Actualizar perfil de usuario:
+PATCH http://localhost:3001/api/auth/actualizarPerfil
+Content-Type: application/json
+Authorization: Bearer <token_obtenido_en_login>
+{
+  "nombre": "Juan Carlos",
+  "apellido": "Pérez González",
+  "correoElectronico": "juan@example.com",
+  "contrasenia": "123456",
+  "imagen": "imagen.jpg"
+}
+
+
+Cerrar sesión:
+POST http://localhost:3001/api/auth/logout
+
+-------------------------------------------------------------
+CLIENTES
+Crear un reclamo:
+   POST http://localhost:3001/api/v1/reclamos/crear
+   Body (raw JSON):
+   ```json
+{
+    "asunto": "Probando reclamo",
+    "descripcion": "Se agrega Prueba",
+    "idReclamoTipo": 3
+}
+   ```
+   Asegúrate de incluir el token JWT en el header: `Authorization: Bearer <tu_token_jwt>`
+
+Listar reclamos del usuario:
+   GET http://localhost:3001/api/v1/reclamos/misReclamos
+   (Incluye el token JWT en el header)
+
+Consultar estado de un reclamo:
+   GET http://localhost:3001/api/v1/reclamos/estado/1
+   (Reemplaza "1" con el ID del reclamo que quieras consultar)
+
+Cancelar un reclamo:
+   PATCH http://localhost:3001/api/v1/reclamos/cancelar/1
+   (Reemplaza "1" con el ID del reclamo que quieras cancelar)
+
+
+--------------------------------------------------------------------------
+EMPLEADOS
+Listar reclamos (Empleado):
+```
+GET http://localhost:3001/api/v1/empleados/reclamos/listar
+Authorization: Bearer <token_empleado>
+```
+
+
+Atender un reclamo (Empleado):
+```
+PATCH http://localhost:3001/api/v1/empleados/reclamos/atender/<id_reclamo>
+Content-Type: application/json
+Authorization: Bearer <token_empleado>
+
+{
+  "nuevoEstado": "En proceso",
+}
+```
+
+Finalizar un reclamo (Empleado):
+```
+PATCH http://localhost:3001/api/v1/empleados/reclamos/finalizar/<id_reclamo>
+Authorization: Bearer <token_empleado>
+{
+  "nuevoEstado": "Finalizado"
+}
+```
+
+---------------------------------------------------------------------------------
+ADMINISTRADORES
+Crear tipo de reclamo (Administrador):
+```
+POST http://localhost:3001/api/v1/administradores/tiposReclamos/crear
+Content-Type: application/json                <--Agregarlo en Headers de postman
+Authorization: Bearer <token_administrador>
+
+{
+  "descripcion": "Reclamo por facturación incorrecta"
+}
+```
+
+Crear una oficina (como administrador):
+```
+POST http://localhost:3001/api/v1/administradores/oficinas/crear
+Headers:
+Content-Type: application/json
+Authorization: Bearer [token_del_administrador]
+Body:
+     {
+       "nombre": "Oficina de Facturación",
+       "idReclamoTipo": 1
+     }
+
+
+Crear Empleado (Administrador):
+```
+POST http://localhost:3001/api/v1/administradores/empleados/crear
+Content-Type: application/json
+Authorization: Bearer <token_administrador>
+{
+  "nombre": "Juan",
+  "apellido": "Pérez",
+  "correoElectronico": "juan@example.com",
+  "contrasenia": "123456",
+  "idOficina": 1
+}
+```
+
+
+Asignar empleado a oficina (como administrador):
+```
+POST http://localhost:3001/api/v1/administradores/oficinas/:idOficina/empleados
+Content-Type: application/json
+Authorization: Bearer <token_administrador>
+
+{
+  "idEmpleado": 1,
+}
+```
+
+Quitar empleado de una oficina:
+Método: DELETE
+URL: http://localhost:3001/api/v1/administradores/oficinas/1/empleados/2
+(Reemplaza "1" con el ID real de la oficina y "2" con el ID real del empleado)
+Headers:
+Authorization: Bearer [token_del_administrador]
+
+
+Muestra estadisticas
+Método: GET
+URL: http://localhost:3001/api/v1/administradores/estadisticas
+
+Método: GET
+URL: http://localhost:3001/api/v1/administradores/informes
+pegar la url en el navegador para descargar el informe

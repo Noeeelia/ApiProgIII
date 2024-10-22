@@ -1,0 +1,73 @@
+Endpoints de las rutas de la API
+
+1. Autenticación y Gestión de Usuarios:
+````
+POST /api/v1/auth/register
+POST /api/v1/auth/login
+GET /api/v1/auth/perfil
+PATCH /api/v1/auth/actualizarPerfil
+POST /api/v1/cambiarContrasenia
+POST /api/v1/solicitarRestablecimiento
+POST /api/v1/restablecerContrasenia
+POST /api/v1/auth/logout
+````
+
+
+2. Gestión de Reclamos (Clientes):
+````
+POST /api/v1/reclamos/crear
+GET /api/v1/reclamos/misReclamos
+GET api/v1/reclamos/estado/:idReclamo
+PATH /api/v1/reclamos/cancelar/:idReclamo
+````
+
+
+3. Gestión de Reclamos (Empleados):
+````
+GET /api/v1/empleados/reclamos/listar
+PATCH /api/v1/empleados/reclamos/atender/:idReclamo
+PATCH /api/v1/empleados/reclamos/finalizar/:idReclamo
+````
+
+
+4. Gestión de Administración (Adminitradores):
+````
+Gestionar Tipos reclamos:
+POST /api/v1/administradores/tiposReclamos/crear
+GET /api/v1/administradores/tiposReclamos/listar
+PATCH /api/v1/administradores/tiposReclamos/actualizar/:id
+DELETE /api/v1/administradores/tiposReclamos/eliminar/:id
+
+Gestionar empleados:
+POST /api/v1/administradores/empleados/crear
+GET /api/v1/administradores/empleados/listar
+PATCH /api/v1/administradores/empleados/actualizar/:id
+DELETE /api/v1/administradores/empleados/eliminar/:id
+
+Gestionar oficinas:
+POST /api/v1/administradores/oficinas/crear
+GET /api/v1/administradores/oficinas/listar
+PATCH /api/v1/administradores/oficinas/actualizar/:id
+DELETE /api/v1/administradores/oficinas/eliminar/:id
+
+Gestionar empleados de oficinas:
+POST /api/v1/administradores/oficinas/:idOficina/empleados
+DELETE /api/v1/administradores/oficinas/:idOficina/empleados/:idEmpleado
+
+Gestionar estadisticas e informes:
+GET /api/v1/administradores/estadisticas
+GET /api/v1/administradores/informes
+````
+
+
+5. En la interfaz de Swagger, verás todos tus endpoints documentados. 
+Puedes expandir cada uno para ver los detalles y probarlos directamente desde la interfaz.
+
+A - Registra usuarios (cliente, empleado, administrador).   
+B - Inicia sesión con cada tipo de usuario.
+C - Crea tipos de reclamos y oficinas (como administrador).
+D - Crea reclamos (como cliente).
+E - Lista y atiende reclamos (como empleado).
+F - Actualiza y cancela reclamos (como cliente).
+G - Obtén estadísticas e informes (como administrador).
+H - Prueba la actualización de perfiles y cierre de sesión.
