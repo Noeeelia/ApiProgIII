@@ -9,7 +9,7 @@ const transporter = nodemailer.createTransport({
         user: process.env.CORREO,
         pass: process.env.CLAVE
     },
-    tls: {
+    tls: {         //Protocolo de seguridad y privacidad de comunicaciones en internet
       rejectUnauthorized: false
     }
 });
@@ -41,7 +41,7 @@ const enviarNotificacion = async (correoElectronico, datos, tipoNotificacion) =>
         throw new Error('Tipo de notificación no válido');
     }
 
-    console.log('Ruta de la plantilla:', templatePath);
+    // console.log('Ruta de la plantilla:', templatePath);
 
     const plantilla = fs.readFileSync(templatePath, 'utf8');
     const template = handlebars.compile(plantilla);

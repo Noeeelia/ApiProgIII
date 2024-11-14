@@ -5,6 +5,13 @@ const { validationResult} = require('express-validator');
 const authService = require('../services/authService');
 const nodemailer = require('nodemailer');
 
+const multer = require('multer');
+const uploads = multer({
+dest: 'uploads/',
+limits: {
+    fileSize: 5 * 1024 * 1024    //5MB limite
+}})
+
 const saltRounds = 10;
 const secretKey = process.env.JWT_SECRET;
 

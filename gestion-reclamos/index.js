@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const { errorHandler } = require('./middlewares/errorMiddleware');
 const helmet = require('helmet');       //Seguridad
 const rateLimit = require('express-rate-limit');
+const cors = require('cors');
 
 const swagger = require('./config/swagger');
 
@@ -11,6 +12,14 @@ const bd = require('./config/bd');      //Importa la conexión a la bd
 require('dotenv').config();      //Para la carga las variables de entorno
 
 const app = express();
+
+
+app.use(cors({
+    origin: ['http://localhost:3000', 'http://localhost://3001'], // Permite ambos puerto 
+    credentials: true,
+    methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 const limiter = rateLimit({
     windowMs: 15 * 60* 1000,  //15 minutos
