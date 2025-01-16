@@ -6,6 +6,8 @@ const helmet = require('helmet');       //Seguridad
 const rateLimit = require('express-rate-limit');
 const cors = require('cors');
 
+const path = require('path');
+
 const swagger = require('./config/swagger');
 
 const bd = require('./config/bd');      //Importa la conexión a la bd
@@ -13,6 +15,12 @@ require('dotenv').config();      //Para la carga las variables de entorno
 
 const app = express();
 
+//Carpeta uploads accesible
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+const fs = require('fs');
+if (!fs.existsSync('./uploads')) {
+    fs.mkdirSync('./uploads');
+}
 
 app.use(cors({
     origin: ['http://localhost:3000', 'http://localhost://3001'], // Permite ambos puerto 

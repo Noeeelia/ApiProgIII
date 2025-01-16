@@ -3,6 +3,7 @@ const router = express.Router();
 const { body } = require('express-validator');
 const { verifyToken } = require('../config/jwtMiddleware');
 const authController = require('../controllers/authController');
+const upload = require('../middlewares/uploadMiddleware');
 const swagger = require('../config/swagger');
 
 /**
@@ -51,13 +52,16 @@ router.post('/logout', verifyToken, authController.logout);
  */
 
 //Método para actualizar los datos del perfil
-router.patch('/actualizarPerfil', verifyToken, [
-    body('nombre').optional().notEmpty().withMessage('El nombre no puede estar vacío'),
-    body('apellido').optional().notEmpty().withMessage('El apellido no puede estar vacío'),
-    body('correoElectronico').optional().isEmail().withMessage('Debe ser un correo válido'),
-    body('contrasenia').optional().isLength({ min: 6 }).withMessage('La contraseña debe tener al menos 6 caracteres'),
-    body('imagen').optional().isString().withMessage('La imagen debe ser una cadena de texto')
-], authController.actualizarPerfil);
+router.patch('/actualizarPerfil', verifyToken, 
+    upload.single('imagen'), 
+    [
+        body('nombre').optional().notEmpty().withMessage('El nombre no puede estar vacío'),
+        body('apellido').optional().notEmpty().withMessage('El apellido no puede estar vacío'),
+        body('correoElectronico').optional().isEmail().withMessage('Debe ser un correo válido'),
+        body('contrasenia').optional().isLength({ min: 6 }).withMessage('La contraseña debe tener al menos 6 caracteres'),
+        body('imagen').optional().isString().withMessage('La imagen debe ser una cadena de texto')
+    ], 
+    authController.actualizarPerfil);
 
 router.post('/cambiarContrasenia', verifyToken, [
     body('contraseniaActual').notEmpty().withMessage('La contraseña actual es obligatoria'),

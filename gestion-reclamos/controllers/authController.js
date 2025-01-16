@@ -81,6 +81,13 @@ const logout = (req, res) => {
 };
 
 const actualizarPerfil = async (req, res) => {
+    console.log('Iniciando actualización de perfil');
+    console.log('Archivo recibido:', req.file);
+    console.log('Datos del body:', req.body);
+
+    console.log('Body completo:', req.body);
+    console.log('File:', req.file);
+
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array()})
@@ -88,30 +95,47 @@ const actualizarPerfil = async (req, res) => {
 
     try {
         const idUsuario = req.user.idUsuario;
-        const { nombre, apellido, correoElectronico, contrasenia, imagen} = req.body;
+        
+        if (!req.body.nombre || !req.body.apellido || !req.body.correoElectronico) {
+            return res.status(400).json({
+                exito: false,
+                message: 'Los campos nombre, apellido y correo electrónico son obligatorios',
+            });
+        }
 
         const datosActualizados = { 
-            nombre, 
-            apellido, 
-            correoElectronico,  
-            imagen
+            nombre: req.body.nombre.trim(), 
+            apellido: req.body.apellido.trim(), 
+            correoElectronico: req.body.correoElectronico.trim()            
         };
+
+        console.log('Datos actualizados antes de imagen: ', datosActualizados);
+
+        if (req.file) {
+            datosActualizados.imagen = req.file.path.replace(/\\/g, '/');
+            console.log('Agregando imagen:', req.file.path.replace(/\\/g, '/'));
+        }
         
-        if (contrasenia) {
-            const hashedPassword = await bcrypt.hash(contrasenia, saltRounds);
+        if (req.body.contrasenia) {
+            const hashedPassword = await bcrypt.hash(req.body.contrasenia, saltRounds);
             datosActualizados.contrasenia = hashedPassword;
         }
+
+        console.log('Datos a actualizar: ', datosActualizados);
 
         const resultado = await authService.actualizarPerfil(idUsuario, datosActualizados);
         res.status(200).json({ 
             exito: true,
-            message: 'Perfil actualizado exitosamente' 
+            message: 'Perfil actualizado exitosamente',
+            imagen: req.file ? req.file.path.replace(/\\/g, '/') : null 
         });
     } catch (error) {
         console.error('Error al actualizar el perfil', error);
         res.status(500).json({ 
             exito: false,
-            message: 'Error interno del servidor' });
+            message: 'Error interno del servidor',
+            detalles: error.message 
+        });
     }
 };
 
