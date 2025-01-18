@@ -15,8 +15,8 @@ const ROLES = require('../config/roles');
 //Ruta protegida para gestionar tipos de reclamos
 router.post('/tiposReclamos/crear', verifyToken, verifyRole([ROLES.ADMINISTRADOR]), administradoresController.crearTipoReclamo);
 router.get('/tiposReclamos/listar', verifyToken, verifyRole([ROLES.ADMINISTRADOR]), administradoresController.obtenerTiposReclamo);
-router.patch('/tiposReclamos/actualizar/:id', verifyToken, verifyRole([ROLES.ADMINISTRADOR]), administradoresController.actualizarTipoReclamo);
-router.delete('/tiposReclamos/eliminar/:id', verifyToken, verifyRole([ROLES.ADMINISTRADOR]), administradoresController.eliminarTipoReclamo);
+router.patch('/tiposReclamos/actualizar/:idReclamoTipo', verifyToken, verifyRole([ROLES.ADMINISTRADOR]), administradoresController.actualizarTipoReclamo);
+router.delete('/tiposReclamos/eliminar/:idReclamoTipo', verifyToken, verifyRole([ROLES.ADMINISTRADOR]), administradoresController.eliminarTipoReclamo);
 
 //Rutas protegidas para gestionar empleados...
 router.post('/empleados/crear', verifyToken, verifyRole([ROLES.ADMINISTRADOR]), administradoresController.crearEmpleado);
