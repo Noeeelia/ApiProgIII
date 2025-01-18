@@ -1,0 +1,121 @@
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative; 
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  /* Otros estilos que ya tengas para el navbar */
+}
+
+.nav-tabs {
+  display: flex;
+  margin-bottom: 2.5rem;
+  border-bottom: 1px solid #007bff;
+}
+
+.nav-item {
+  flex: 1;
+}
+
+.nav-link {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  border: none;
+  background: none;
+  color: #f7f9fb;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #007bff;
+}
+
+.nav-link.active {
+  border-bottom: 5px solid #007bff;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1.25rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.table-responsive {
+    overflow-x: auto;
+    min-height: 300px; /* altura mínima */
+}
+
+.table {
+    margin-bottom: 0;
+    width: 100%;
+}
+
+/* Para fijar el ancho de las columnas */
+.table th {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#footer {
+  position: relative;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  margin-top: 20px;
+}
+
+
+@media (max-width: 915px) {
+    .navbar {
+      width: 100%;
+    }
+    .navbar-brand {
+      margin-left: 10px;
+    }
+    .navbar-collapse {
+        background-color: #212529;
+        padding: 1rem;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+    }
+
+    .navbar-nav {
+        padding: 0.5rem 0;
+        margin: 0;
+        flex-direction: column;
+    }
+
+    .nav-item {
+        margin: 0.5rem 0;
+    }
+
+    .btn {
+        width: 100%;
+        margin: 0.25rem 0;
+    }
+
+}

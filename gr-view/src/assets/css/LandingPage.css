@@ -1,0 +1,188 @@
+.landing-page {
+    padding-top: 0.5px; /* Ajusta este valor según la altura de tu NavBar */
+    width: 100%; 
+}
+
+.portada {
+    position: relative;
+    height: calc(100vh - 0.5px); /* Resta la altura del NavBar */
+    overflow: hidden;
+}
+
+.portada__imagen {
+    position: absolute;
+    top: 100px;
+    left: 0;
+    width: 100%;
+    height: 120%;
+    background-size: cover;
+    background-position: center center; /* Centramos la imagen */
+    z-index: 1;
+}
+
+.portada__texto-container {
+    position: absolute;
+    top: 75%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px 0;
+    z-index: 2;
+}
+
+.portada__texto {
+    max-width: 800px;
+    margin: 0 auto;
+    color: white;
+    padding: 20px;
+}
+
+.portada__texto h1 {
+    font-size: 2.5em;
+    margin-bottom: 15px;
+    color: #f2f2f2;
+}
+
+.portada__texto h4 {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+}
+
+.portada__texto p {
+    margin-bottom: 10px;
+}
+
+
+
+/* Estilos para las secciones de información y contacto */
+.informacion, .contacto {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #020202;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.informacion h2, .contacto h2 {
+    color: #f2f2f2;
+    margin-bottom: 20px;
+}
+
+.informacion p, .contacto p {
+    color: #f2f2f2;
+    line-height: 1.6;
+}
+
+
+/* Añadimos un efecto de hover a las secciones */
+.informacion:hover, .contacto:hover {
+    transform: translateY(-5px);
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+
+.informacion__container {
+    display: flex;
+    justify-content: space-between;
+    margin: 40px;
+    gap: 10px;
+    text-align: center;
+    padding: 20px;
+}
+
+
+.informacion__item {
+    flex: 1;
+    padding: 20px;
+    border: 1px solid grey;
+    border-radius: 10px;
+    margin: 40px;
+}
+
+.marcas-iconos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 20px 0;
+}
+
+
+.marcas-iconos img {
+    width: 100px;
+    height: auto;
+    margin: 30px;
+    object-fit: contain;
+}
+
+
+@media screen and (max-width: 915px) { 
+    .portada {
+        position: relative;
+        height: 500px;
+    }
+    .portada__imagen {
+        width: 100%;
+        height: 300px;
+    }
+
+    .portada__texto-container {
+        width: 90%;
+        height: 250px;
+        text-align: center;
+        font-size: 10px;
+        top: 75%;
+        transform: translate(-50%, -50%);
+        padding: 10px 0;
+        z-index: 1;
+    }
+
+
+    .marcas-iconos img {
+        width: 50px;
+        margin: 10px; 
+        align-items: center; 
+    }  
+
+    .informacion__container {
+        margin: 20px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .informacion__item {
+        width: 100%;
+        margin: auto;
+        margin-bottom: 15px;
+        font-size: 12px;
+        align-items: center;
+    }   
+
+    .informacion__item img {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .informacion, .contacto {
+        width: 90%;
+        padding: 20px;
+        font-size: 12px;
+        align-items: center;
+    }
+
+    #footer {
+        font-size: 8px;
+        width: 100%;
+        margin-top: 20px;
+        padding: 8px;
+      }
+}
+
+
+
+
